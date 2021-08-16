@@ -11,15 +11,7 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-def_players():
-    end_game = False
-    while not end_game:
-        game_input(player_name)
-        play_game(player_name)
-
-def game_input(name):
+    game()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
