@@ -1,21 +1,25 @@
-from model import History
+import utility
 from mysqlDB import Database
 
 
-
-database = Database()
-# myConnection = pymysql.connect(host=hostname, user=username, passwd=password, db="mysql")
-history = History("Sachin", "robin", 23)
-
-myConnection = database.connect()
-database.createDatabase(myConnection)
-database.createHistoryTable(myConnection)
-database.insert(myConnection, history)
-database.doQuery(myConnection)
-
-myConnection.close()
-
-# Press the green button in the gutter to run the script.
+def takeChoice():
+    print("Menu :")
+    print("1. History")
+    print("2. Play game")
+    print("3. Exit")
+    return input("Please enter choice (1/2/3):")
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+choice = takeChoice()
+while choice != "3":
+    if choice == "1":
+        database = Database()
+        conn = database.connect()
+        database.doQuery(conn)
+
+    elif choice == "2":
+        utility.game()
+    elif choice == "3":
+        exit
+
+    choice = takeChoice()

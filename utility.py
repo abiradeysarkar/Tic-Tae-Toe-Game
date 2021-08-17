@@ -1,8 +1,14 @@
 # Implementation of Tic Tae Toe game in python
+from model import History
+from mysqlDB import Database
 
 boardScreen = {'7': ' ', '8': ' ', '9': ' ',
                '4': ' ', '5': ' ', '6': ' ',
                '1': ' ', '2': ' ', '3': ' '}
+user_input_display = {'7': '7', '8': '8', '9': '9',
+                      '4': '4', '5': '5', '6': '6',
+                      '1': '1', '2': '2', '3': '3'}
+
 player_details = {'X': 'player1', '0': 'player2'}
 board_keys = []
 
@@ -37,6 +43,8 @@ def printHorizontal():
 # main game functionality in this method
 
 def game():
+    print(" Below are the keys you would refer to play the game")
+    displayBoard(user_input_display)
     player1 = input("Enter player1 name: ")
     print(player1)
     player2 = input("Enter player2 name: ")
@@ -44,6 +52,7 @@ def game():
     player = player1
     turn = 'X'
     count = 0
+    won = False
     for r in range(10):
         displayBoard(boardScreen)
         print(player + " it's your turn " + turn + ". Which position you want to move?")
@@ -61,41 +70,49 @@ def game():
         if count >= 5:
             if boardScreen['7'] == boardScreen['8'] == boardScreen['9'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game Over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['4'] == boardScreen['5'] == boardScreen['6'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['1'] == boardScreen['2'] == boardScreen['3'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['1'] == boardScreen['4'] == boardScreen['7'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['2'] == boardScreen['5'] == boardScreen['8'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['3'] == boardScreen['6'] == boardScreen['9'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['7'] == boardScreen['5'] == boardScreen['3'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
             elif boardScreen['1'] == boardScreen['5'] == boardScreen['9'] != ' ':
                 displayBoard(boardScreen)
+                won = True
                 print(" Game over \n")
                 print("Bingo!!! " + player + " you won the game")
                 break
@@ -106,6 +123,7 @@ def game():
             print(" It is TIE")
             break
 
+
         # change the player and turn after every move
         if turn == 'X' and player == player1:
             turn = '0'
@@ -114,8 +132,13 @@ def game():
             turn = 'X'
             player = player1
 
+    if won:
+        history = History(player1, player2, player)
+        database = Database()
+        conn = database.connect()
+        database.insert(conn, history)
+        print("Game Saved in DB.")
     # Will ask the player if they want to play again
-
     restart = input("Do you want to play again? (y/n)")
     if restart == 'y' or restart == "Y" or restart == "yes":
         for key in board_keys:
