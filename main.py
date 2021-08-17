@@ -5,7 +5,7 @@ from mysqlDB import Database
 
 database = Database()
 # myConnection = pymysql.connect(host=hostname, user=username, passwd=password, db="mysql")
-history = History("Sachin", "robin", 23)
+history = History("Sachin", "robin", "sachin")
 
 myConnection = database.connect()
 database.createDatabase(myConnection)
