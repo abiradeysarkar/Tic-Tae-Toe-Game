@@ -8,26 +8,30 @@ board_keys = []
 for key in boardScreen:
     board_keys.append(key)
 
+
 def displayBoard(board: dict):
     printBlankLine()
-    printelementIn(board['7'], board['8'], board['9'])
+    print_element_In(board['7'], board['8'], board['9'])
     printHorizontal()
     printBlankLine()
-    printelementIn(board['4'], board['5'], board['6'])
+    print_element_In(board['4'], board['5'], board['6'])
     printHorizontal()
     printBlankLine()
-    printelementIn(board['1'], board['2'], board['3'])
+    print_element_In(board['1'], board['2'], board['3'])
     printBlankLine()
+
 
 def printBlankLine():
     print("     |      |     ")
 
 
-def printelementIn(arg1, arg2, arg3):
+def print_element_In(arg1, arg2, arg3):
     print(f"  {arg1}  |   {arg2}  |  {arg3}  ")
+
 
 def printHorizontal():
     print("_____|______|_____")
+
 
 # main game functionality in this method
 
@@ -52,12 +56,12 @@ def game():
             if boardScreen['7'] == boardScreen['8'] == boardScreen['9'] != ' ':
                 displayBoard(boardScreen)
                 print(" Game Over \n")
-                print("the player " +turn+ " won")
+                print("the player " + turn + " won")
                 break
             elif boardScreen['4'] == boardScreen['5'] == boardScreen['6'] != ' ':
                 displayBoard(boardScreen)
                 print(" Game over \n")
-                print("the player " +turn+ " won")
+                print("the player " + turn + " won")
                 break
             elif boardScreen['1'] == boardScreen['2'] == boardScreen['3'] != ' ':
                 displayBoard(boardScreen)
@@ -94,6 +98,7 @@ def game():
         if count == 9:
             print(" Game is over \n")
             print(" It is TIE")
+            break
 
         # change the player after every move
         if turn == 'X':
@@ -110,5 +115,6 @@ def game():
 
         game()
 
+
 if __name__ == '__main__':
-        game()
+    game()
